@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>fade2blur</title>
+
+  <style>
+      html,body{
+          width: 100%;
+      }
+      body{
+          height: 1000px;
+
+      }
+      .box{
+          width:500px;
+          margin-top:50px;
+          margin-left: auto;
+          margin-right: auto;
+      }
+      .pic1,.pic2{
+          max-width:500px;
+          position: absolute;
+      }
+      .pic1{
+          z-index: -999;
+      }
+      .pic2{
+          z-index: -888;
+      }
+
+  </style>
+
+</head>
+
+<body>
+<div class="box">
+    <img class="pic1" src="./img/1.jpg">
+    <img class="pic2" src="./img/1-blur.jpg">
+</div>
+
+  <script src='js/jquery.js'></script>
+
+
+  <script>
+      $(document).ready(function(){
+          var s=4;                          //s可以调控灵敏度，现在下滑屏幕高的一半就会完全模糊掉
+          function p(i,j){                  //p函数参数>i:下滑距离；j:完全模糊的距离
+              if(i<=j){
+                  var k=i/j;
+                  k= k.toFixed(2);          //保留两位小数
+                  return k;
+              }else{
+                  return 1;
+              }
+          }
+          $(window).scroll(function(){      //滑动触发
+              var scrollTo = $(window).scrollTop();
+              var windowHeight = $(window).height()/s;
+              $(".pic2").css("opacity",p(scrollTo,windowHeight));
+          }).trigger('scroll');
+      })
+
+  </script>
+
+</body>
+
+</html>
